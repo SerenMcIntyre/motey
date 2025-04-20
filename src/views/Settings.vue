@@ -1,0 +1,3 @@
+<template>
+   look, routes
+</template>
