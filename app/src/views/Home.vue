@@ -1,5 +1,4 @@
 <template>
-  <main class="container">
     <h1>Welcome to Tauri + Vue</h1>
 
     <div class="row">
@@ -13,14 +12,13 @@
         <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
       </a>
     </div>
-    <p class="text-red-500">Click on the Tauri, Vite, and Vue logos to learn more.</p>
+    <p class="text-purple-500">Click on the Tauri, Vite, and Vue logos to learn more.</p>
 
     <form class="row" @submit.prevent="greet">
       <input id="greet-input" v-model="name" placeholder="Enter a name..." />
       <button type="submit">Greet</button>
     </form>
     <p>{{ greetMsg }}</p>
-   </main>
 </template>
 
 <style scoped>

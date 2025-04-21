@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --color-paper-50: #F9E29C;
+  --color-paper-100: #F9E29C;
+  --color-paper-200: #F9E29C;
+  --color-paper-300: #F9E29C;
+  --color-paper-400: #F9E29C;
+  --color-paper-500: #F9E29C;
+  --color-paper-600: #F9E29C;
+  --color-paper-700: #F9E29C;
+  --color-paper-800: #F9E29C;
+  --color-paper-900: #F9E29C;
+  --color-paper-950: #F9E29C;
+}
+
+:root {
+  --ui-bg: var(--ui-color-neutral-50);
+  --ui-text: var(--ui-color-neutral-900);
+}
+
+.dark {
+  --ui-bg: var(--ui-color-neutral-950);
+  --ui-border: var(--ui-color-neutral-900);
+}
