@@ -1,41 +1,31 @@
 package main
 
 import (
+	"context"
+	"log"
+	"motey-api/controllers"
+	db "motey-api/db"
+	"motey-api/services"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/jackc/pgx/v5"
+	"github.com/joho/godotenv"
 )
 
-type Task struct {
-  ID string `uri:"id" binding:"required,uuid"`
-}
+var db_test = make(map[string]string)
 
-var db = make(map[string]string)
-
-func getTask(c *gin.Context) {
-  var task Task
-  if err := c.ShouldBindUri(&task); err != nil {
-    c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-    return
-  }
-
-  c.JSON(http.StatusOK, gin.H{"uuid": task.ID})
-}
-
-func setupRouter() *gin.Engine {
+func setupRouter(queries *db.Queries) *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 
-  {
-    v1 := r.Group("api/v1")
+	{
+		v1 := r.Group("api/v1")
 
-    {
-      tasks := v1.Group("/tasks")
-      tasks.GET(":id", getTask)
-    }
-  }
-
+		registerControllers(v1, queries)
+	}
 
 	// Ping test
 	r.GET("/ping", func(c *gin.Context) {
@@ -45,7 +35,7 @@ func setupRouter() *gin.Engine {
 	// Get user value
 	r.GET("/user/:name", func(c *gin.Context) {
 		user := c.Params.ByName("name")
-		value, ok := db[user]
+		value, ok := db_test[user]
 		if ok {
 			c.JSON(http.StatusOK, gin.H{"user": user, "value": value})
 		} else {
@@ -83,7 +73,7 @@ func setupRouter() *gin.Engine {
 		}
 
 		if c.Bind(&json) == nil {
-			db[user] = json.Value
+			db_test[user] = json.Value
 			c.JSON(http.StatusOK, gin.H{"status": "ok"})
 		}
 	})
@@ -91,8 +81,32 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
+func registerControllers(v1 *gin.RouterGroup, queries *db.Queries) {
+	taskController := controllers.NewTaskController(services.NewTaskService(queries))
+
+	taskController.RegisterRoutes(taskController, v1)
+}
+
+func getEnv(key string) string {
+	err := godotenv.Load()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return os.Getenv(key)
+}
+
 func main() {
-	r := setupRouter()
+	bg := context.Background()
+	log.Println(bg)
+	conn, err := pgx.Connect(bg, getEnv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	queries := db.New(conn)
+
+	r := setupRouter(queries)
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
 }

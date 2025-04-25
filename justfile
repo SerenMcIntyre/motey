@@ -17,9 +17,3 @@ migrate-db:
     -u "postgres://postgres:postgres@localhost:5502/postgres?sslmode=disable"  \
     --dev-url "docker://postgres" \
     --to "file://schema.sql"
-
-test:
-  cd api && atlas schema apply \
-  --url "postgres://postgres:postgres@localhost:5502/postgres?sslmode=disable" \
-  --dev-url "docker://postgres" \
-  --to "file://schema.sql"
