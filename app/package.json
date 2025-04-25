@@ -18,7 +18,8 @@
     "@tauri-apps/plugin-opener": "^2",
     "tailwindcss": "^4.1.4",
     "vue": "^3.5.13",
-    "vue-router": "4"
+    "vue-router": "4",
+    "vue3-google-login": "^2.0.33"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",

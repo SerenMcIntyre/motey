@@ -14,6 +14,7 @@ async function greet() {
 <template>
   <UApp>
     <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/login">Login</RouterLink>
     <RouterLink to="/settings">Settings</RouterLink>
     <RouterLink to="/tasks/new" class="px-2 underline text-red-500">Add task</RouterLink>
     <main>

@@ -17,3 +17,12 @@ migrate-db:
     -u "postgres://postgres:postgres@localhost:5502/postgres?sslmode=disable"  \
     --dev-url "docker://postgres" \
     --to "file://schema.sql"
+
+start-web:
+  cd app && bun run dev
+
+start-tauri:
+  cd app && bun tauri dev
+
+start-mobile:
+  cd app && bun tauri dev android

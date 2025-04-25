@@ -3,10 +3,11 @@ import { createMemoryHistory, createRouter } from "vue-router";
 import HomeView from "./views/Home.vue";
 import SettingsView from "./views/Settings.vue";
 import EditTaskView from "./views/tasks/Edit.vue";
-
+import LoginView from "./views/Login.vue";
 
 const routes = [
   { path: "/", component: HomeView },
+  { path: "/login", component: LoginView },
   { path: "/settings", component: SettingsView },
   { path: "/tasks/new", component: EditTaskView },
 ];
