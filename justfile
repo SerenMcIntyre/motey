@@ -21,8 +21,8 @@ migrate-db:
 start-web:
   cd app && bun run dev
 
-start-tauri:
-  cd app && bun tauri dev
+start-desktop:
+  cd app && WEBKIT_DISABLE_DMABUF_RENDERER=1 bun tauri dev
 
 start-mobile:
-  cd app && bun tauri dev android
+  cd app && bun tauri android dev --open

@@ -1,14 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { invoke } from "@tauri-apps/api/core";
+import { useAuth0 } from '@auth0/auth0-vue';
 
-const greetMsg = ref("");
-const name = ref("");
-
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke("greet", { name: name.value });
-}
+const {  user, isAuthenticated } = useAuth0();
 </script>
 
 <template>
@@ -19,6 +12,9 @@ async function greet() {
     <RouterLink to="/tasks/new" class="px-2 underline text-red-500">Add task</RouterLink>
     <main>
       <RouterView />
+      <pre class="text-primary-500" v-if="isAuthenticated">
+        <code>{{ user }}</code>
+      </pre>
     </main>
   </UApp>
 </template>
