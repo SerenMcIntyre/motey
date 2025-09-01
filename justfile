@@ -1,4 +1,5 @@
 # Backend
+set windows-shell := ["C:\\Program Files\\Git\\bin\\sh.exe","-c"]
 
 start-api:
   cd api && go run main.go
