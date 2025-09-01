@@ -24,3 +24,7 @@
   --ui-bg: var(--ui-color-neutral-950);
   --ui-border: var(--ui-color-neutral-900);
 }
+
+label {
+  margin-bottom: 1rem;
+}
